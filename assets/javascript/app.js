@@ -1,4 +1,3 @@
-
 var game = {
     currentQnA:{},
     totalQnA: 0,
@@ -85,7 +84,7 @@ var game = {
         displayTime: function(t){
             $('#timer').css('visibility','visible');
             $('#timer').text('00:'+ (t < 10? '0' + t : t));
-        },
+        }
     },
     utilities: {
         shuffleArray: function(arr){
