@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Classic Opera Trivia</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css" media="screen">
@@ -9,31 +11,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="./assets/javascript/app.js"></script>
+    <script src="./assets/javascript/tests.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <main class="col">
-            <article id="quiz" class="container">
+    <div class="container">
+        <div class="row">
+            <main class="col">
                 <div class="row">
                     <div class="col">
                         <h1>How well do you <em>Opera</em>?</h1>
-                        <div id="timer"></div>
+                        <div id="timer">00:00</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <!--content-->
-                    </div>
+                    <form class="col">
+                        <fieldset id="start_panel" class="form-group row">
+                            <legend class="col" id="start"></legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="start" id="a0" value=""><label for="a0" class="form-check-label">Start</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset id="question_panel" class="form-group row">
+                            <legend class="question col"></legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="question1" id="a1" value=""><label for="a1" class="form-check-label"></label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="question1" id="a2" value=""><label for="a2" class="form-check-label"></label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="question1" id="a3" value=""><label for="a3" class="form-check-label"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset id="answer_panel" class="form-group row">
+                            <legend class="response col"></legend>
+                            <div class="col">
+                                <div id="useranswer"></div>
+                                <div id="gameanswer"></div>
+                            </div>
+                        </fieldset>
+                        <fieldset id="end_panel" class="form-group row">
+                            <legend id="end" class="col"></legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="end" id="alast" value=""><label for="alast" class="form-check-label">Restart?</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <!--buttons-->
-                    </div>
-                </div>
-            </article>
-        </main>
+            </main>
+        </div>
     </div>
-</div>
 </body>
 </html>
