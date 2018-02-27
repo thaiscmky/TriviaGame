@@ -87,7 +87,7 @@ var game = {
             var choices = $.merge([qa.answer],qa.choices);
             game.utilities.shuffleArray(choices);
             $.each(choices, function(i, choice){
-                var selectors = '#selections input#a'+(i+1);
+                var selectors = '#question_panel .selections input#a'+(i+1);
                 $(selectors).val(choice);
                 $('label[for="a'+(i+1)+'"]').text($(selectors).val());
             });
