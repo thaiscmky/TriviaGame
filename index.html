@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Classic Opera Trivia</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css" media="screen">
@@ -11,29 +13,60 @@
     <script src="./assets/javascript/app.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <main class="col">
-            <article id="quiz" class="container">
+    <div class="container">
+        <div class="row">
+            <main class="col">
                 <div class="row">
                     <div class="col">
                         <h1>How well do you <em>Opera</em>?</h1>
-                        <div id="timer"></div>
+                        <div id="timer">0:00</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <!--content-->
-                    </div>
+                    <form class="col">
+                        <fieldset class="form-group row">
+                            <legend class="col" id="start"></legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="start" id="a0" value=""><label for="a0" class="form-check-label">Start</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <legend class="question col">A Question?</legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="a1" value=""><label for="a1" class="form-check-label">Option 1</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="a2" value=""><label for="a2" class="form-check-label">Option 1</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="a3" value=""><label for="a3" class="form-check-label">Option 1</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <legend id="end" class="col"></legend>
+                            <div class="col">
+                                <div class="description"></div>
+                                <div class="selections">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="end" id="alast" value=""><label for="alast" class="form-check-label">Restart?</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <!--buttons-->
-                    </div>
-                </div>
-            </article>
-        </main>
+            </main>
+        </div>
     </div>
-</div>
 </body>
 </html>
