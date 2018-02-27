@@ -38,17 +38,17 @@ function testUiRendering(){
     assert("The displayed starting countdown time should be 0:30", compare);
     compare = game.timer.currentInterval > 0;
     assert("A time interval should be active", compare);
-    compare = $('#selections input[value=""]').length === 0;
+    compare = $('#question_panel .selections input[value=""]').length === 0;
     assert("None of the answer options should be empty", compare);
     compare = $('input[name^="question"]').length >= 3;
     assert("There should be at least 3 choices in a question", compare);
-    compare = !$('#selections label').is(':empty');
+    compare = !$('#question_panel .selections label').is(':empty');
     assert("None of the answer labels should be empty", compare);
 }
 function testUserSelection(selection){
     var answer = $(selection).val();
     var compare;
-    compare = (answer.match('^Wrong Answer') && game.score.incorrect > 0) || (answer.match('^The correct answer') && game.score.correct > 0);
+    compare = (answer.match('^Wrong answer') && game.score.incorrect > 0) || (answer.match('^The correct answer') && game.score.correct > 0);
     assert('Number of correct or incorrect answers increase when user makes a selection.', compare);
 }
 
