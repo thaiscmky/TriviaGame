@@ -22,8 +22,9 @@ var game = {
         countDown: function(){
             this.currentTime--;
             game.renderUi.displayTime(this.currentTime);
-            if(this.currentTime === 0)
-                clearInterval(this.currentInterval);
+            if(this.currentTime === 0){
+                this.pauseInterval();
+            }
         },
         convertTime: function(t, type){
             var convertedTime;
@@ -40,15 +41,28 @@ var game = {
         startInterval: function(){
             this.currentTime = this.countFrom;
             game.renderUi.displayTime(this.currentTime);
-            clearInterval(this.currentInterval);
             this.currentInterval = setInterval(
                 game.timer.countDown.bind(this), this.convertTime(1, 'sec2ms'));
         },
         restartInterval: function(){
+            this.timer.pauseInterval();
+            this.currentTime = this.countFrom;
+            game.renderUi.displayTime(this.currentTime);
+            this.startInterval();
 
         },
         pauseInterval: function(){
             clearInterval(this.currentInterval);
+        }
+    },
+    validateAnswer: function(selection){
+        var userAnswer = $(selection).val();
+        if($.inArray(userAnswer, game.choices) && userAnswer === game.currentQnA.answer){
+            alert( 'Correct!');
+            game.score.correct += 1;
+        } else {
+            alert( 'Incorrect!');
+            game.score.incorrect += 1;
         }
     },
     showAnswer: function(){
@@ -96,7 +110,7 @@ var game = {
 
 $(document).ready(function() {
     game.startGame();
-    $('input[name^="question"]').on('click', function(){
-
-    });
+    $('input[name^="question"]').on('click', function(e){
+        game.validateAnswer(e.target);
+    });;
 });
