@@ -1,7 +1,7 @@
 
 var game = {
     currentQnA:{},
-    totalQnA: this.groups.length,
+    totalQnA: 0,
     score: {
         correct:0,
         incorrect:0,
@@ -11,10 +11,7 @@ var game = {
         {
             question: 'Dummy Question',
             answer: 'The correct answer',
-            choices: {
-                correct: [this.answer],
-                incorrect: ['Wrong answer 1', 'Wrong answer 2']
-            }
+            choices: ['Wrong answer 1', 'Wrong answer 2']
         }
     ],
     timer: {
@@ -25,7 +22,7 @@ var game = {
         answerInterval: 5,
         countDown: function(){
             this.currentTime--;
-            this.displayTime(this.currentTime);
+            game.renderUi.displayTime(this.currentTime);
             if(this.currentTime === 0)
                 clearInterval(this.currentInterval);
         },
@@ -43,7 +40,7 @@ var game = {
         },
         startInterval: function(){
             this.currentTime = this.countFrom;
-            renderUi.displayTime(this.currentTime);
+            game.renderUi.displayTime(this.currentTime);
             clearInterval(this.currentInterval);
             this.currentInterval = setInterval(
                 game.timer.countDown.bind(this), this.convertTime(1, 'sec2ms'));
@@ -65,6 +62,7 @@ var game = {
 
     },
     startGame: function(){
+        this.totalQnA = this.groups.length;
         this.currentQnA = this.groups[0];
         this.renderUi.displayChoices(this.currentQnA);
         this.renderUi.displayAnswer();
@@ -73,13 +71,12 @@ var game = {
     renderUi: {
         displayChoices: function(qa){
             $('legend.question').text(qa.question);
-            var choices = $.merge(
-                $.merge([], qa.choices.correct),
-                qa.choices.incorrect
-            );
-            this.utilities.shuffleArray(choices);
-            $.each(choices, function(choice){
-
+            var choices = $.merge([qa.answer],qa.choices);
+            game.utilities.shuffleArray(choices);
+            $.each(choices, function(i, choice){
+                var selectors = '#selections input#a'+(i+1);
+                $(selectors).val(choice);
+                $('label[for="a'+(i+1)+'"]').text($(selectors).val());
             });
         },
         displayAnswer: function(){
@@ -99,7 +96,8 @@ var game = {
 };
 
 $(document).ready(function() {
+    game.startGame();
     $('input[name^="question"]').on('click', function(){
-        
+
     });
 });
