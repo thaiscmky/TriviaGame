@@ -48,7 +48,8 @@ function testUiRendering(){
 function testUserSelection(selection){
     var answer = $(selection).val();
     var compare;
-    compare = answer.match('^Wrong Answer');
+    compare = (answer.match('^Wrong Answer') && game.score.incorrect > 0) || (answer.match('^The correct answer') && game.score.correct > 0);
+    assert('Number of correct or incorrect answers increase when user makes a selection.', compare);
 }
 
 function runtests(){
@@ -57,8 +58,8 @@ function runtests(){
     //event handlers
     $('#timer').bind('DOMSubtreeModified',function(){
         testTimerFunction(this)});
-    $('input[name^="question"]').on('click',function(){
-        testUserSelection(this);
+    $('input[name^="question"]').on('click',function(e){
+        testUserSelection(e.target);
     });
 }
 
