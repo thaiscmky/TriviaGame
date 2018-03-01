@@ -78,7 +78,7 @@ var game = {
         }
     },
     validateAnswer: function(selection){
-        var userAnswer = $(selection).val()
+        var userAnswer = $(selection).text();
         var question = '<p><strong>Question: </strong>: ' + game.currentQnA.question + '</p>';
         if($.inArray(userAnswer, game.choices) && userAnswer === game.currentQnA.answer){
             this.score.correct += 1;
@@ -91,7 +91,7 @@ var game = {
             this.renderUi.displayAnswer(
                 'That\'s Incorrect',
                 question,
-                '<p><strong>Answer: </strong>' + game.currentQnA.answer + '</p><p><strong>You selected: </strong> ' + userAnswer, '</p>');
+                '<p><strong>Answer: </strong>' + game.currentQnA.answer + '</p><p><strong>You selected: </strong> ' + userAnswer + '</p>');
         }
         game.timer.nextQuestionDelay = setTimeout(this.goToNextQuestion.bind(this), this.timer.convertTime(this.timer.answerInterval, 'sec2ms'));
     },
@@ -120,6 +120,10 @@ var game = {
         this.currentQnA = this.groups[0];
         this.renderUi.displayChoices(this.currentQnA);
         this.timer.startInterval();
+
+        $('#question_panel .selections label[for^="a"]').on('click', function(e){
+            game.validateAnswer(e.target);
+        });
     },
     renderUi: {
         displayChoices: function(qa){
@@ -136,7 +140,7 @@ var game = {
                 $(selections[i]).attr('value', choice);
                 $(selections[i]).attr('name','question'+(question));
                 $(labels[i]).attr('for', 'a'+(i+1));
-                $(labels[i]).text($(selections[i]).val());
+                $(labels[i]).find('span').first().text($(selections[i]).val());
             });
         },
         displayAnswer: function(legend, question, msg1, msg2){
@@ -164,8 +168,5 @@ var game = {
 };
 
 $(document).ready(function() {
-    //game.startGame();
-    $('input[name^="question"]').on('click', function(e){
-        game.validateAnswer(e.target);
-    });
+    $('#start_panel button').first().on('click', game.startGame.bind(game));
 });

@@ -31,8 +31,22 @@ function testTimerFunction(el){
 }
 
 function testUiRendering(){
+    console.warn('Initial Screen Rendering Assertions');
+    var compare;
 
-    console.warn('Initial Form Rendering Assertions');
+    compare = $('#start_panel').is(':visible') && $('#start_panel button').length > 0;
+    assert("There a choice to start the game", compare);
+    compare = !($('#question_panel').is(':visible') || $('#answer_panel').is(':visible'));
+    assert("There should be no answers or questions on the screen", compare);
+    compare = !$('#end_panel').is(':visible');
+    assert("There should not be a choice to restart the game", compare);
+    compare = $('#start_panel .description').first().is(':visible') && !$('#start_panel .description').first().is(':empty');
+    assert("The game description should be visible and not empty", compare);
+
+}
+function testQuestionRendering(){
+
+    console.warn('Initial Question Rendering Assertions');
     var compare;
 
     compare = $('fieldset legend').hasClass('question');
@@ -53,7 +67,7 @@ function testUiRendering(){
     compare = $('#question_panel .selections input[value=""]').length === 0;
     assert("None of the answer options should be empty", compare);
 
-    compare = $('input[name^="question"]').length >= 3;
+    compare = $('#question_panel .selections label[for^="a"]').length >= 3;
     assert("There should be at least 3 choices in a question", compare);
 
     compare = !$('#question_panel .selections label').is(':empty');
@@ -61,6 +75,10 @@ function testUiRendering(){
 
     compare = !$('#answer_panel').is(":visible");
     assert('Answer panel should not be visible to end user.', compare);
+
+    $('#question_panel .selections label[for^="a"]').on('click',function(e){
+        testUserSelection(e.target);
+    });
 }
 function testUserSelection(selection){
 
@@ -92,7 +110,7 @@ function testAnswerSelection(answer){
         }
     }
 
-    compare = $('legend.response').text().match('^Correct') || $('legend.response').text().match('^Incorrect');
+    compare = $('legend.response').text().match('correct') || $('legend.response').text().match('incorrect');
     assert('User is told he has select either an incorrect or a correct answer.', compare, true);
 
     compare = !($('#gamequestion').is(':empty') && $('#gamequestion').text() === game.currentQnA.question);
@@ -127,7 +145,9 @@ function testNextQuestion(){
     }).length > 0;
     assert('The new selection options are displayed to the end user.', compare);
 
-    compare = $('#question_panel .selections input').first().val() === $('#question_panel .selections label').first().text();
+    compare = $('#question_panel .selections label[for^="a"]').filter(function(i, el){
+            return !$.inArray($(el).text(), game.groups[nextQuestionIndex].choices);
+        }).length > 0;
     assert('The new selection texts/labels are displayed to the end user.', compare);
 
     compare = $('#question_panel .selections input').is(':checked').length === 0;
@@ -146,11 +166,8 @@ function runtests(){
     //event handlers
     $('#timer').bind('DOMSubtreeModified',function(){
         testTimerFunction(this)});
-    $('input[name^="question"]').on('click',function(e){
-        testUserSelection(e.target);
-    });
+    $('#start_panel button').first().on('click', testQuestionRendering);
 }
-
 $(document).ready(function() {
     console.warn('Running Tests');
     console.warn('To stop tests from running, remove the tests.js script call from the html page.');
