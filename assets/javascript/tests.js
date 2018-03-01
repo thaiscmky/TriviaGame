@@ -18,8 +18,8 @@ function testTimerFunction(el){
         case t === -1:
             compare = game.timer.currentTime === -1;
             console.error('Timer did not stop at -1');
-            compare = $('div#timer').text() !== '00:00';
-            assert("Timer should display 0:00", compare);
+            compare = $('div#timer').text() === '00:00';
+            assert("Timer should display 00:00", compare);
             $(el).unbind('DOMSubtreeModified');
             break;
         case t < 0:
@@ -102,15 +102,8 @@ function testAnswerSelection(answer){
 
     compare = $('#answer_panel').is(":visible");
     assert('Answer panel is now visible to end user.', compare);
-    if(compare){
-        compare = $('#timer').text() <= '00:05';
-        assert('The current timer should be counting from 5 seconds', compare);
-        if(compare){
-            assertionTimer = setTimeout(testNextQuestion.bind(answer), game.timer.answerInterval * 1000 + 1);
-        }
-    }
 
-    compare = $('legend.response').text().match('correct') || $('legend.response').text().match('incorrect');
+    compare = $('legend.response').text().match('orrect') || $('legend.response').text().match('ncorrect');
     assert('User is told he has select either an incorrect or a correct answer.', compare, true);
 
     compare = !($('#gamequestion').is(':empty') && $('#gamequestion').text() === game.currentQnA.question);
@@ -118,6 +111,17 @@ function testAnswerSelection(answer){
 
     compare = !($('#useranswer').is(':empty') && $('#gameanswer').is(':empty'));
     assert('Either or both user selection and correct answer is displayed back to the user.', compare);
+
+    if(compare){
+        compare = $('#timer').text() <= '00:05';
+        assert('The current timer should be counting from 5 seconds', compare);
+        if(compare){
+            if(game.currentQnA === game.groups[game.groups.length -1])
+                testEndGameRendering();
+            else
+                assertionTimer = setTimeout(testNextQuestion.bind(answer), game.timer.answerInterval * 1000 + 1);
+        }
+    }
 
 }
 
@@ -160,6 +164,40 @@ function testNextQuestion(){
 
 }
 
+function testEndGameRendering() {
+    console.log('This is the last question/answer pair in the trivia.');
+    $('#timer').bind('DOMSubtreeModified',function(){
+        if(game.timer.currentTime === 0){
+            console.warn('Running Last Screen Tests.');
+            $('#timer').unbind('DOMSubtreeModified');
+
+            var compare;
+
+            compare = !$('#question_panel').is(":visible");
+            assert('Question panel is not visible to end user.', compare);
+
+            compare = !$('#answer_panel').is(":visible");
+            assert('Answer panel is no longer visible to end user.', compare);
+
+            compare = $('#end_panel').is(":visible");
+            assert('The endgame panel is now visible to end user.', compare);
+
+            compare = $('#end_panel .description').text().match('orrect') &&
+                $('#end_panel .description').text().match(game.score.correct);
+            assert('The endgame panel shows the user\'s number of correct answers.', compare);
+
+            compare = $('#end_panel .description').text().match('ncorrect') &&
+                $('#end_panel .description').text().match(game.score.incorrect);
+            assert('The endgame panel shows the user\'s number of incorrect answers.', compare);
+
+            compare = $('#end_panel .description').text().match('nanswered') &&
+                $('#end_panel .description').text().match(game.score.unanswered);
+            assert('The endgame panel shows the user\'s number of unanswered questions.', compare);
+        }
+    });
+
+}
+
 function runtests(){
     var game = window['game'];
     testUiRendering();
@@ -167,6 +205,7 @@ function runtests(){
     $('#timer').bind('DOMSubtreeModified',function(){
         testTimerFunction(this)});
     $('#start_panel button').first().on('click', testQuestionRendering);
+    $('#end_panel button').first().on('click', testQuestionRendering);
 }
 $(document).ready(function() {
     console.warn('Running Tests');
