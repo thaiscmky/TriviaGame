@@ -15,9 +15,11 @@ function assert(assertion, condition, success, error){
 function testTimerFunction(el){
     var compare;
     switch(t = game.timer.currentTime) {
-        case t === 0:
-            compare = game.timer.currentTime === 0;
-            console.error('Timer should stop at 0');
+        case t === -1:
+            compare = game.timer.currentTime === -1;
+            console.error('Timer did not stop at -1');
+            compare = $('div#timer').text() !== '00:00';
+            assert("Timer should display 0:00", compare);
             $(el).unbind('DOMSubtreeModified');
             break;
         case t < 0:
@@ -40,7 +42,7 @@ function testUiRendering(){
     assert("A div of #timer to hold the question countdown should exist", compare);
 
     compare = $('div#timer').text() !== '00:00';
-    assert("The displayed starting time should be greater than zero", compare)
+    assert("The displayed starting time should be greater than zero", compare);
 
     compare = $('div#timer').text() === '00:30';
     assert("The displayed starting countdown time should be 0:30", compare);
@@ -93,6 +95,9 @@ function testAnswerSelection(answer){
     compare = $('legend.response').text().match('^Correct') || $('legend.response').text().match('^Incorrect');
     assert('User is told he has select either an incorrect or a correct answer.', compare, true);
 
+    compare = !($('#gamequestion').is(':empty') && $('#gamequestion').text() === game.currentQnA.question);
+    assert('The previous question should be displayed back to the user, and should match the question that corresponds to the answer.', compare);
+
     compare = !($('#useranswer').is(':empty') && $('#gameanswer').is(':empty'));
     assert('Either or both user selection and correct answer is displayed back to the user.', compare);
 
@@ -117,13 +122,19 @@ function testNextQuestion(){
         && $('fieldset legend.question').text() === game.groups[nextQuestionIndex].question;
     assert ('A new question is displayed to the end user.', compare);
 
-    compare = $('#question_panel .selections input').filter(function(i, val){
-        return !$.inArray(val, game.groups[nextQuestionIndex].choices);
+    compare = $('#question_panel .selections input').filter(function(i, el){
+        return !$.inArray($(el).val(), game.groups[nextQuestionIndex].choices);
     }).length > 0;
     assert('The new selection options are displayed to the end user.', compare);
 
-    compare = $('#question_panel .selections input').val() === $('#question_panel .selections label').text();
+    compare = $('#question_panel .selections input').first().val() === $('#question_panel .selections label').first().text();
     assert('The new selection texts/labels are displayed to the end user.', compare);
+
+    compare = $('#question_panel .selections input').is(':checked').length === 0;
+    assert('The newly rendered answer selections are unchecked', compare);
+
+    compare = $('div#timer').text() !== '00:00';
+    assert("A new timer has started", compare);
 
     clearTimeout(assertionTimer);
 
