@@ -8,7 +8,17 @@ var game = {
     },
     groups: [
         {
-            question: 'Dummy Question',
+            question: 'Dummy Question 1',
+            answer: 'The correct answer',
+            choices: ['Wrong answer 1', 'Wrong answer 2']
+        },
+        {
+            question: 'Dummy Question 2',
+            answer: 'The correct answer',
+            choices: ['Wrong answer 1', 'Wrong answer 2']
+        },
+        {
+            question: 'Dummy Question 3',
             answer: 'The correct answer',
             choices: ['Wrong answer 1', 'Wrong answer 2']
         }
@@ -38,10 +48,11 @@ var game = {
             }
             return convertedTime;
         },
-        startInterval: function(){
-            this.currentTime = this.countFrom;
+        startInterval: function(t){
+            clearInterval(game.timer.currentInterval);
+            this.currentTime = typeof t === 'undefined' ? this.countFrom : t;
             game.renderUi.displayTime(this.currentTime);
-            this.currentInterval = setInterval(
+            game.timer.currentInterval = setInterval(
                 game.timer.countDown.bind(this), this.convertTime(1, 'sec2ms'));
         },
         restartInterval: function(){
@@ -52,21 +63,18 @@ var game = {
 
         },
         pauseInterval: function(){
-            clearInterval(this.currentInterval);
+            clearInterval(game.timer.currentInterval);
         }
     },
     validateAnswer: function(selection){
         var userAnswer = $(selection).val();
         if($.inArray(userAnswer, game.choices) && userAnswer === game.currentQnA.answer){
-            alert( 'Correct!');
-            game.score.correct += 1;
+            this.score.correct += 1;
+            this.renderUi.displayAnswer('Correct!', '<p>You selected:<br/> ' + userAnswer + '</p>');
         } else {
-            alert( 'Incorrect!');
-            game.score.incorrect += 1;
+            this.score.incorrect += 1;
+            this.renderUi.displayAnswer('Incorrect!', '<p>You selected:<br/> ' + userAnswer, '</p><p>The correct answer was:<br/>' + game.currentQnA.answer);
         }
-    },
-    showAnswer: function(){
-        this.timer.pauseInterval();
     },
     nextQuestion: function(){
 
@@ -75,14 +83,19 @@ var game = {
 
     },
     startGame: function(){
+        $('#start_panel').hide();
+        $('#end_panel').hide();
+        $('#answer_panel').hide();
+        $('#question_panel').show();
         this.totalQnA = this.groups.length;
         this.currentQnA = this.groups[0];
         this.renderUi.displayChoices(this.currentQnA);
-        this.renderUi.displayAnswer();
         this.timer.startInterval();
     },
     renderUi: {
         displayChoices: function(qa){
+            $('#answer_panel').hide();
+            $('#question_panel').show();
             $('legend.question').text(qa.question);
             var choices = $.merge([qa.answer],qa.choices);
             game.utilities.shuffleArray(choices);
@@ -92,7 +105,14 @@ var game = {
                 $('label[for="a'+(i+1)+'"]').text($(selectors).val());
             });
         },
-        displayAnswer: function(){
+        displayAnswer: function(legend, msg1, msg2){
+            $('#question_panel').hide();
+            game.timer.startInterval(5);
+            var $container = $('#answer_panel');
+            $container.show();
+            $container.find('legend.response').text(legend);
+            $container.find('#useranswer').html( msg1 );
+            $container.find('#gameanswer').html( typeof msg2 === 'undefined' ? '' : msg2 );
 
         },
         displayTime: function(t){
