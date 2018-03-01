@@ -1,6 +1,7 @@
 #timer {
     visibility: hidden;
 }
-#question_panel, #answer_panel, #end_panel {
+#question_panel, #answer_panel, #end_panel,
+#question_panel .selections label input[type="radio"]{
     display:none;
 }
