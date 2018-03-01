@@ -1,6 +1,5 @@
 var game = {
     currentQnA:{},
-    totalQnA: 0,
     score: {
         correct:0,
         incorrect:0,
@@ -108,15 +107,14 @@ var game = {
         }
         clearTimeout(game.timer.nextQuestionDelay);
     },
-    restartGame: function(){
-
-    },
     startGame: function(){
+        game.score.correct = 0;
+        game.score.incorrect = 0;
+        game.score.unanswered = 0;
         $('#start_panel').hide();
         $('#end_panel').hide();
         $('#answer_panel').hide();
         $('#question_panel').show();
-        this.totalQnA = this.groups.length;
         this.currentQnA = this.groups[0];
         this.renderUi.displayChoices(this.currentQnA);
         this.timer.startInterval();
