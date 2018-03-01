@@ -130,11 +130,13 @@ var game = {
             var question = $.inArray(qa, game.groups) + 1;
             game.utilities.shuffleArray(choices);
             $('#question_panel .selections').first().attr('id', 'question'+question);
+            var selections = $('#question_panel .selections .form-check input');
+            var labels = $('#question_panel .selections .form-check label');
             $.each(choices, function(i, choice){
-                var selectors = '#question_panel .selections input#a'+(i+1);
-                $(selectors).val(choice);
-                $(selectors).attr('name','question'+(question));
-                $('label[for="a'+(i+1)+'"]').text($(selectors).val());
+                $(selections[i]).attr('value', choice);
+                $(selections[i]).attr('name','question'+(question));
+                $(labels[i]).attr('for', 'a'+(i+1));
+                $(labels[i]).text($(selections[i]).val());
             });
         },
         displayAnswer: function(legend, question, msg1, msg2){
@@ -162,7 +164,7 @@ var game = {
 };
 
 $(document).ready(function() {
-    game.startGame();
+    //game.startGame();
     $('input[name^="question"]').on('click', function(e){
         game.validateAnswer(e.target);
     });
