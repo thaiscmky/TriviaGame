@@ -28,7 +28,7 @@ var game = {
         }
     ],
     timer: {
-        countFrom: 10,
+        countFrom: 30,
         countTo: 0,
         currentInterval: 0,
         currentTime: 0,
@@ -103,14 +103,11 @@ var game = {
         }
         else {
             this.timer.pauseInterval();
-            //display end of game screen
+            this.endGame();
         }
         clearTimeout(game.timer.nextQuestionDelay);
     },
     startGame: function(){
-        game.score.correct = 0;
-        game.score.incorrect = 0;
-        game.score.unanswered = 0;
         $('#start_panel').hide();
         $('#end_panel').hide();
         $('#answer_panel').hide();
@@ -122,6 +119,26 @@ var game = {
         $('#question_panel .selections label[for^="a"]').on('click', function(e){
             game.validateAnswer(e.target);
         });
+    },
+    endGame: function() {
+        $('#start_panel').hide();
+        $('#question_panel').hide();
+        $('#answer_panel').hide();
+        $('#end_panel .description').first().empty();
+        $('#end_panel').show();
+        $('#end_panel legend#end').text('You\'ve reached the end. Let\'s well you Trivia\'d!');
+        var $description = $('#end_panel .description').first();
+        var correct = '<p><strong>Correct: </strong> ' + game.score.correct + '</p>';
+        var incorrect = '<p><strong>Incorrect: </strong> ' + game.score.incorrect + '</p>';
+        var unanswered = '<p><strong>Unanswered: </strong> ' + game.score.unanswered + '</p>';
+        $description.append(correct + incorrect + unanswered);
+        this.renderUi.displayTime(0);
+    },
+    resetGame: function() {
+        this.score.correct = 0;
+        this.score.incorrect = 0;
+        this.score.unanswered = 0;
+        this.startGame();
     },
     renderUi: {
         displayChoices: function(qa){
@@ -167,4 +184,5 @@ var game = {
 
 $(document).ready(function() {
     $('#start_panel button').first().on('click', game.startGame.bind(game));
+    $('#end_panel button').first().on('click', game.resetGame.bind(game));
 });

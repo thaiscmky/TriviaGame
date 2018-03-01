@@ -103,7 +103,7 @@ function testAnswerSelection(answer){
     compare = $('#answer_panel').is(":visible");
     assert('Answer panel is now visible to end user.', compare);
 
-    compare = $('legend.response').text().match('orrect') || $('legend.response').text().match('ncorrect');
+    compare = $('legend.response').text().match('orrect').length > 0 || $('legend.response').text().match('ncorrect').length > 0;
     assert('User is told he has select either an incorrect or a correct answer.', compare, true);
 
     compare = !($('#gamequestion').is(':empty') && $('#gamequestion').text() === game.currentQnA.question);
@@ -154,7 +154,9 @@ function testNextQuestion(){
         }).length > 0;
     assert('The new selection texts/labels are displayed to the end user.', compare);
 
-    compare = $('#question_panel .selections input').is(':checked').length === 0;
+    compare = $('#question_panel .selections input').filter(function(i, el){
+        return $(el).is(':checked');
+    }).length === 0;
     assert('The newly rendered answer selections are unchecked', compare);
 
     compare = $('div#timer').text() !== '00:00';
@@ -167,31 +169,25 @@ function testNextQuestion(){
 function testEndGameRendering() {
     console.log('This is the last question/answer pair in the trivia.');
     $('#timer').bind('DOMSubtreeModified',function(){
-        if(game.timer.currentTime === 0){
+        if(game.timer.currentTime === 0 && !$('#answer_panel').is(":visible")){
             console.warn('Running Last Screen Tests.');
             $('#timer').unbind('DOMSubtreeModified');
 
             var compare;
 
-            compare = !$('#question_panel').is(":visible");
-            assert('Question panel is not visible to end user.', compare);
-
-            compare = !$('#answer_panel').is(":visible");
-            assert('Answer panel is no longer visible to end user.', compare);
-
             compare = $('#end_panel').is(":visible");
             assert('The endgame panel is now visible to end user.', compare);
 
-            compare = $('#end_panel .description').text().match('orrect') &&
-                $('#end_panel .description').text().match(game.score.correct);
+            compare = $('#end_panel .description').text().match('orrect').length > 0 &&
+                $('#end_panel .description').text().match(game.score.correct).length > 0;
             assert('The endgame panel shows the user\'s number of correct answers.', compare);
 
-            compare = $('#end_panel .description').text().match('ncorrect') &&
-                $('#end_panel .description').text().match(game.score.incorrect);
+            compare = $('#end_panel .description').text().match('ncorrect').length > 0 &&
+                $('#end_panel .description').text().match(game.score.incorrect).length > 0;
             assert('The endgame panel shows the user\'s number of incorrect answers.', compare);
 
-            compare = $('#end_panel .description').text().match('nanswered') &&
-                $('#end_panel .description').text().match(game.score.unanswered);
+            compare = $('#end_panel .description').text().match('nanswered').length > 0 &&
+                $('#end_panel .description').text().match(game.score.unanswered).length > 0;
             assert('The endgame panel shows the user\'s number of unanswered questions.', compare);
         }
     });
