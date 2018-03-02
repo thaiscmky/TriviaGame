@@ -1,8 +1,59 @@
+@import "https://fonts.googleapis.com/css?family=Kaushan+Script|Orbitron";
+html,body {
+    height: 100%;
+}
+body {
+    background: url('../images/symphony.png') repeat;
+    color: #f13d3d;
+}
+p {
+    font-size: 1.25em;
+}
 #timer {
     visibility: hidden;
+    text-align: center;
+    font-family: 'Orbitron', serif;
+    font-size: 4vw;
+    margin: 8vh 4vh 2vh;
+    color: #010202;
+}
+div[class^="col"] > h1 {
+    text-align:center;
+    font-family: 'Kaushan Script', sans-serif;
+    font-size: 6vw;
 }
 #question_panel, #answer_panel, #end_panel,
 #question_panel .selections label input[type="radio"]
 {
     display:none;
+}
+#answer_panel legend{
+    text-align:center;
+    padding: 2vh 5vh 3vh;
+    font-family: 'Kaushan Script', sans-serif;
+    font-size: 3.5vw;
+
+}
+#game {
+   
+}
+#game legend+div {
+    margin: 1em auto 3em;
+    color: #333;
+}
+main {
+    background-color:#fffff1;
+    border-radius: 3em;
+    border: 1px solid #eee;
+}
+.center-y{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-check {
+    margin: 2vw;
+}
+button{
+    margin-top: 4vh;
 }

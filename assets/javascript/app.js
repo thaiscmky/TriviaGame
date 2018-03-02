@@ -1,5 +1,5 @@
 var game = {
-    info: 'This trivia game features known facts about some of the most popular and classic operas in the world. Are you ready to test your knowledge?',
+    info: '<p>This trivia game features known facts about some of the most popular and classic operas in the world. Are you ready to test your knowledge?</p>',
     currentQnA:{},
     score: {
         correct:0,
@@ -38,7 +38,7 @@ var game = {
             choices: ['Idomeneo', 'Wozzeck']
         },
         {
-            question: 'Dummy Question 7',
+            question: 'What is the name of the Druid who secretly had children with a Roman official in this famous opera?',
             answer: 'Norma',
             choices: ['Boris Godunov', 'William Tell']
         },
@@ -71,7 +71,7 @@ var game = {
                 this.pauseInterval();
                 game.score.unanswered += 1;
                 game.renderUi.displayAnswer('Time\'s up!',
-                    '<p><strong>Question: </strong>: ' + game.currentQnA.question + '</p>',
+                    '<p><strong>Question: </strong>' + game.currentQnA.question + '</p>',
                     '<p><strong>Answer: </strong>' + game.currentQnA.answer + '</p>',
                     '');
                 game.timer.nextQuestionDelay = setTimeout(game.goToNextQuestion.bind(game), this.convertTime(this.answerInterval, 'sec2ms'));
@@ -109,13 +109,13 @@ var game = {
     },
     validateAnswer: function(selection){
         var userAnswer = $(selection).text();
-        var question = '<p><strong>Question: </strong>: ' + game.currentQnA.question + '</p>';
+        var question = '<p><strong>Question: </strong>' + game.currentQnA.question + '</p>';
         if($.inArray(userAnswer, game.choices) && userAnswer === game.currentQnA.answer){
             this.score.correct += 1;
             this.renderUi.displayAnswer(
                 'That\'s Correct!',
                 question,
-                '<p><strong>Answer:</strong>' + userAnswer + '</p>');
+                '<p><strong>Answer: </strong>' + userAnswer + '</p>');
         } else {
             this.score.incorrect += 1;
             this.renderUi.displayAnswer(
@@ -214,7 +214,7 @@ var game = {
 };
 
 $(document).ready(function() {
-    $('#start_panel .description').first().text(game.info);
+    $('#start_panel .description').first().html(game.info);
     $('#start_panel button').first().on('click', game.startGame.bind(game));
     $('#end_panel button').first().on('click', game.resetGame.bind(game));
 });
