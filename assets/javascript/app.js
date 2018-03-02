@@ -8,23 +8,53 @@ var game = {
     groups: [
         {
             question: 'Dummy Question 1',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            answer: 'Carmen',
+            choices: ['Aida', 'Otello']
         },
         {
             question: 'Dummy Question 2',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            answer: 'Rigeletto',
+            choices: ['L\'Orfeo', 'Pagliacci']
         },
         {
             question: 'Dummy Question 3',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            answer: 'The Barber of Seville',
+            choices: ['Falstaff', 'Don Carlos']
         },
         {
             question: 'Dummy Question 4',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            answer: 'Tosca',
+            choices: ['Falstaff', 'Dido and Aeneas']
+        },
+        {
+            question: 'Dummy Question 5',
+            answer: 'Eugene Onegin',
+            choices: ['Tristan and Isolde', 'Salome']
+        },
+        {
+            question: 'Dummy Question 6',
+            answer: 'The Marriage of Figaro',
+            choices: ['Idomeneo', 'Wozzeck']
+        },
+        {
+            question: 'Dummy Question 7',
+            answer: 'Norma',
+            choices: ['Boris Godunov', 'William Tell']
+        },
+        {
+            question: 'Dummy Question 8',
+            answer: 'Tosca',
+            choices: ['Der Rosenkavalier', 'Cavalleria Rusticana']
+        },
+        {
+            question: 'Dummy Question 9',
+            answer: 'The Ring of Nibelung',
+            choices: ['Orfeo ed Euridice', 'The Flying Dutchman']
+        },
+        {
+            question: 'Dummy Question 10',
+            answer: 'La Traviata',
+            choices: ['The Tales of Hoffmann', 'The Queen of Spades']
         }
     ],
     timer: {
