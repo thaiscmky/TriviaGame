@@ -1,4 +1,5 @@
 var game = {
+    info: 'This trivia game features known facts about some of the most popular and classic operas in the world. Are you ready to test your knowledge?',
     currentQnA:{},
     score: {
         correct:0,
@@ -7,24 +8,54 @@ var game = {
     },
     groups: [
         {
-            question: 'Dummy Question 1',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            question: 'Who\'s the gypsy who seduces a guard in order to escape imprisonment?',
+            answer: 'Carmen',
+            choices: ['Aida', 'Otello']
         },
         {
-            question: 'Dummy Question 2',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            question: 'Which character is similar in personality to that of The Hunchback of Notre Dame?',
+            answer: 'Rigeletto',
+            choices: ['L\'Orfeo', 'Pagliacci']
         },
         {
-            question: 'Dummy Question 3',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            question: 'Which opera features the song Figaro!',
+            answer: 'The Barber of Seville',
+            choices: ['Falstaff', 'Don Carlos']
         },
         {
-            question: 'Dummy Question 4',
-            answer: 'The correct answer',
-            choices: ['Wrong answer 1', 'Wrong answer 2']
+            question: 'In which opera does all of the main characters die n a tale of revenge and betrayal, with the last act ending in suicide?',
+            answer: 'Tosca',
+            choices: ['Falstaff', 'Dido and Aeneas']
+        },
+        {
+            question: 'Which opera takes place in early 1800s, Russia?',
+            answer: 'Eugene Onegin',
+            choices: ['Tristan and Isolde', 'Salome']
+        },
+        {
+            question: 'Which is a comedy by Mozard?',
+            answer: 'The Marriage of Figaro',
+            choices: ['Idomeneo', 'Wozzeck']
+        },
+        {
+            question: 'Dummy Question 7',
+            answer: 'Norma',
+            choices: ['Boris Godunov', 'William Tell']
+        },
+        {
+            question: 'Which opera\'s famous aria is known as Musetta\'s Waltz?',
+            answer: 'La bohème',
+            choices: ['Der Rosenkavalier', 'Cavalleria Rusticana']
+        },
+        {
+            question: 'Which is written as part of four operas with mystic heroes, and is 5 hours long?',
+            answer: 'The Ring of Nibelung',
+            choices: ['Orfeo ed Euridice', 'The Flying Dutchman']
+        },
+        {
+            question: 'Which features the most famous opera melodies of all time, Brindisi?',
+            answer: 'La Traviata',
+            choices: ['The Tales of Hoffmann', 'The Queen of Spades']
         }
     ],
     timer: {
@@ -183,6 +214,7 @@ var game = {
 };
 
 $(document).ready(function() {
+    $('#start_panel .description').first().text(game.info);
     $('#start_panel button').first().on('click', game.startGame.bind(game));
     $('#end_panel button').first().on('click', game.resetGame.bind(game));
 });
