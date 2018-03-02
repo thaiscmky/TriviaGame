@@ -1,4 +1,5 @@
 var game = {
+    info: 'This trivia game features known facts about some of the most popular and classic operas in the world. Are you ready to test your knowledge?',
     currentQnA:{},
     score: {
         correct:0,
@@ -213,6 +214,7 @@ var game = {
 };
 
 $(document).ready(function() {
+    $('#start_panel .description').first().text(game.info);
     $('#start_panel button').first().on('click', game.startGame.bind(game));
     $('#end_panel button').first().on('click', game.resetGame.bind(game));
 });
