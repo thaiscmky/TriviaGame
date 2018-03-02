@@ -7,32 +7,32 @@ var game = {
     },
     groups: [
         {
-            question: 'Dummy Question 1',
+            question: 'Who\'s the gypsy who seduces a guard in order to escape imprisonment?',
             answer: 'Carmen',
             choices: ['Aida', 'Otello']
         },
         {
-            question: 'Dummy Question 2',
+            question: 'Which character is similar in personality to that of The Hunchback of Notre Dame?',
             answer: 'Rigeletto',
             choices: ['L\'Orfeo', 'Pagliacci']
         },
         {
-            question: 'Dummy Question 3',
+            question: 'Which opera features the song Figaro!',
             answer: 'The Barber of Seville',
             choices: ['Falstaff', 'Don Carlos']
         },
         {
-            question: 'Dummy Question 4',
+            question: 'In which opera does all of the main characters die n a tale of revenge and betrayal, with the last act ending in suicide?',
             answer: 'Tosca',
             choices: ['Falstaff', 'Dido and Aeneas']
         },
         {
-            question: 'Dummy Question 5',
+            question: 'Which opera takes place in early 1800s, Russia?',
             answer: 'Eugene Onegin',
             choices: ['Tristan and Isolde', 'Salome']
         },
         {
-            question: 'Dummy Question 6',
+            question: 'Which is a comedy by Mozard?',
             answer: 'The Marriage of Figaro',
             choices: ['Idomeneo', 'Wozzeck']
         },
@@ -42,17 +42,17 @@ var game = {
             choices: ['Boris Godunov', 'William Tell']
         },
         {
-            question: 'Dummy Question 8',
-            answer: 'Tosca',
+            question: 'Which opera\'s famous aria is known as Musetta\'s Waltz?',
+            answer: 'La bohème',
             choices: ['Der Rosenkavalier', 'Cavalleria Rusticana']
         },
         {
-            question: 'Dummy Question 9',
+            question: 'Which is written as part of four operas with mystic heroes, and is 5 hours long?',
             answer: 'The Ring of Nibelung',
             choices: ['Orfeo ed Euridice', 'The Flying Dutchman']
         },
         {
-            question: 'Dummy Question 10',
+            question: 'Which features the most famous opera melodies of all time, Brindisi?',
             answer: 'La Traviata',
             choices: ['The Tales of Hoffmann', 'The Queen of Spades']
         }
