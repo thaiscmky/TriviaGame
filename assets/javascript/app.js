@@ -18,7 +18,7 @@ var game = {
             choices: ['L\'Orfeo', 'Pagliacci']
         },
         {
-            question: 'Which opera features the song Figaro!',
+            question: 'Which opera features the song Figaro?',
             answer: 'The Barber of Seville',
             choices: ['Falstaff', 'Don Carlos']
         },
@@ -157,7 +157,7 @@ var game = {
         $('#answer_panel').hide();
         $('#end_panel .description').first().empty();
         $('#end_panel').show();
-        $('#end_panel legend#end').text('You\'ve reached the end. Let\'s well you Trivia\'d!');
+        $('#end_panel legend#end').text('You\'ve reached the end. Let\'s see how well you Trivia\'d!');
         var $description = $('#end_panel .description').first();
         var correct = '<p><strong>Correct: </strong> ' + game.score.correct + '</p>';
         var incorrect = '<p><strong>Incorrect: </strong> ' + game.score.incorrect + '</p>';
