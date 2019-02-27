@@ -1,5 +1,7 @@
 # Opera Trivia
 
+Working demo available at: https://thaiscmky.github.io/trivia-game/
+
 ## Objective
 
 Answer each question as quick as possible before the time elapses. At the end of all 10 questions, you will receive your scoring and a change to try it again.
